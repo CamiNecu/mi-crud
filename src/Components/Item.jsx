@@ -1,6 +1,6 @@
 import React from "react";
 
-
+// Al hacer clic en "Editar" o "Eliminar", llama a las funciones correspondientes.
 function Item({item,deleteItem,editItem}){
     return(
         <li>

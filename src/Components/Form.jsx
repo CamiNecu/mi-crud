@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 
-
+// Este componente muestra un formulario para agregar o actualizar elementos.
+// Si se está editando un ítem, precarga su valor en el input.
+// Al enviar, llama a la función addOrUpdateItem con el valor ingresado.
 function Form({ addOrUpdateItem, itemToEdit }){
     const [inputValue, setInputValue]= useState('');
 

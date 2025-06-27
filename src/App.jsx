@@ -3,7 +3,8 @@ import Form from './Components/Form';
 import List from './Components/List';
 import './App.css'
 
-
+// Maneja el estado de los ítems y el ítem en edición.
+// Usa useEffect para cargar y guardar datos en localStorage.
 function App() {
   const [items, setItems] =useState([]);
   const [itemToEdit,setItemToEdit]=useState(null);
