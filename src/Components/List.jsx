@@ -5,10 +5,10 @@ import Item from "./Item";
 function List({ alumnos, eliminarAlumno, editarAlumno }) {
   return (
     <ul>
-      {alumnos.map((alumno) => (
+      {alumnos.map((al) => (
         <Item
-          key={alumno.id}
-          alumno={alumno}
+          key={al.id}
+          alumno={al}
           eliminarAlumno={eliminarAlumno}
           editarAlumno={editarAlumno}
         />

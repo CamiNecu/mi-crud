@@ -6,50 +6,48 @@ import './App.css'
 // Maneja el estado de los ítems y el ítem en edición.
 // Usa useEffect para cargar y guardar datos en localStorage.
 function App() {
-  const [items, setItems] = useState([]);
-  const [itemToEdit, setItemToEdit] = useState(null);
+  const [alumnos, setAlumnos] = useState([]);
+  const [editando, setEditando] = useState(null);
 
   useEffect(() => {
-    const storedItems =
-      JSON.parse(localStorage.getItem('items')) || [];
-    setItems(storedItems);
+    const guardados = JSON.parse(localStorage.getItem("alumnos")) || [];
+    setAlumnos(guardados);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem("alumnos", JSON.stringify(alumnos));
+  }, [alumnos]);
 
-  const addOrUpdateItem = (value) => {
-    if (itemToEdit) {
-      setItems(items.map(item =>
-        item.id === itemToEdit.id ? { ...item, value } : item
-      ));
-      setItemToEdit(null);
+  const calcularEscala = (promedio) => {
+    if (promedio < 4) return "Deficiente";
+    if (promedio < 5.6) return "Con mejora";
+    if (promedio < 6.5) return "Buen trabajo";
+    return "Destacado";
+  };
+
+  const guardarAlumno = (datos) => {
+    const escala = calcularEscala(parseFloat(datos.promedio));
+    if (editando) {
+      setAlumnos(
+        alumnos.map((a) =>
+          a.id === editando.id ? { ...datos, id: a.id, escala } : a
+        )
+      );
+      setEditando(null);
     } else {
-      setItems([...items, { id: Date.now(), value }]);
+      setAlumnos([...alumnos, { ...datos, id: Date.now(), escala }]);
     }
   };
 
-  const deleteItem = (id) => {
-    setItems(items.filter(item => item.id !== id));
-  };
-
-  const editItem = (item) => {
-    setItemToEdit(item);
+  const eliminarAlumno = (id) => {
+    setAlumnos(alumnos.filter((a) => a.id !== id));
   };
 
   return (
-    <div className="App">
-      <h1>CRUD con LocalStorage</h1>
-      <Form
-        addOrUpdateItem={addOrUpdateItem}
-        itemToEdit={itemToEdit}
-      />
-      <List
-        items={items}
-        deleteItem={deleteItem}
-        editItem={editItem}
-      />
+    <div>
+      <h1>Evaluación de Alumnos</h1>
+      <Form agregarOActualizarAlumno={guardarAlumno} alumnoEditar={editando} />
+      <List alumnos={alumnos} eliminarAlumno={eliminarAlumno} editarAlumno={setEditando} />
     </div>
   );
 }

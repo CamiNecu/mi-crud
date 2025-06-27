@@ -4,7 +4,7 @@ import React from "react";
 function Item({ alumno, eliminarAlumno, editarAlumno }) {
   return (
     <li>
-      <strong>{alumno.nombre}</strong> | {alumno.asignatura} | Promedio: {alumno.promedio} | Escala: <em>{alumno.escala}</em>
+      {alumno.nombre} | {alumno.asignatura} | Promedio: {alumno.promedio} | Escala: {alumno.escala}
       <button onClick={() => editarAlumno(alumno)}>Editar</button>
       <button onClick={() => eliminarAlumno(alumno.id)}>Eliminar</button>
     </li>
