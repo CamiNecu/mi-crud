@@ -1,21 +1,20 @@
 import React from "react";
 import Item from "./Item";
 
-// Este componente recibe una lista de ítems y la recorre con componente Item.
-// También pasa las funciones de eliminar y editar a cada ítem individual.
-function List({items,deleteItem, editItem}){
-    return(
-        <ul>
-            {items.map((item)=>(
-                <Item
-                key={item.id}
-                item={item}
-                deleteItem={deleteItem}
-                editItem={editItem}
-                />
-            ))}
-        </ul>
-    );
+// Lista de alumnos
+function List({ alumnos, eliminarAlumno, editarAlumno }) {
+  return (
+    <ul>
+      {alumnos.map((alumno) => (
+        <Item
+          key={alumno.id}
+          alumno={alumno}
+          eliminarAlumno={eliminarAlumno}
+          editarAlumno={editarAlumno}
+        />
+      ))}
+    </ul>
+  );
 }
 
 export default List;
