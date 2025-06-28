@@ -8,15 +8,29 @@ import './App.css'
 function App() {
   const [alumnos, setAlumnos] = useState([]);
   const [editando, setEditando] = useState(null);
+  const [primeraCarga, setPrimeraCarga] = useState(true);
 
   useEffect(() => {
-    const guardados = JSON.parse(localStorage.getItem("alumnos")) || [];
-    setAlumnos(guardados);
+    const guardados =localStorage.getItem("alumnos");
+    if(guardados){
+      try {
+        const datos =JSON.parse(guardados);
+        if (Array.isArray(datos)){
+          setAlumnos(datos);
+        }
+      } catch (e) {
+        console.error("Error al leer localStorage:",e);
+      }
+    }
+    setPrimeraCarga(false);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("alumnos", JSON.stringify(alumnos));
-  }, [alumnos]);
+    if (!primeraCarga) {
+      localStorage.setItem("alumnos", JSON.stringify(alumnos));
+    }
+    console.log("Alumnos guardados en localStorage:", alumnos);
+  }, [alumnos, primeraCarga]);
 
   const calcularEscala = (promedio) => {
     if (promedio < 4) return "Deficiente";
@@ -26,7 +40,10 @@ function App() {
   };
 
   const guardarAlumno = (datos) => {
-    const escala = calcularEscala(parseFloat(datos.promedio));
+    const promedioNum = parseFloat(datos.promedio);
+    if (isNaN(promedioNum) || promedioNum < 1 || promedioNum > 7) return;
+
+    const escala = calcularEscala(promedioNum);
     if (editando) {
       setAlumnos(
         alumnos.map((a) =>

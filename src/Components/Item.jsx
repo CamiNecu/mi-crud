@@ -4,9 +4,14 @@ import React from "react";
 function Item({ alumno, eliminarAlumno, editarAlumno }) {
   return (
     <li>
-      {alumno.nombre} | {alumno.asignatura} | Promedio: {alumno.promedio} | Escala: {alumno.escala}
-      <button onClick={() => editarAlumno(alumno)}>Editar</button>
-      <button onClick={() => eliminarAlumno(alumno.id)}>Eliminar</button>
+      <div>
+        Nombre: {alumno.nombre} — Asignatura: {alumno.asignatura} <br />
+        Promedio: {alumno.promedio} | Escala: <em>{alumno.escala}</em>
+      </div>
+      <div>
+        <button onClick={() => editarAlumno(alumno)}>Editar</button>
+        <button onClick={() => eliminarAlumno(alumno.id)} style={{ marginLeft: '10px' }}>Eliminar</button>
+      </div>
     </li>
   );
 }

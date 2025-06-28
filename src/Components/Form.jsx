@@ -49,6 +49,10 @@ function Form({ agregarOActualizarAlumno, alumnoEditar }) {
         placeholder="Promedio"
         value={promedio}
         onChange={(e) => setPromedio(e.target.value)}
+        min="1"
+        max="7"
+        step="0.1"
+        required
       />
       <button type="submit">{alumnoEditar ? "Actualizar" : "Agregar"}</button>
     </form>
